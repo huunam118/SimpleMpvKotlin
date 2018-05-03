@@ -1,4 +1,5 @@
-## This is base android project using MVP structure using **Kotlin v1.2.41** includes these below libraries
+The base android MVP structure using **Kotlin v1.2.41**, includes these below libraries
+---
 1. Dagger 2.11
 2. Retrofit 2.4.0
 3. Room Database 1.0.0
