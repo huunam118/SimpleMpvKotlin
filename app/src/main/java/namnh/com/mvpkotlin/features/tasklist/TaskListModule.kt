@@ -3,13 +3,13 @@ package namnh.com.mvpkotlin.features.tasklist
 import dagger.Module
 import dagger.Provides
 import namnh.com.mvpkotlin.data.source.TaskRepository
-import namnh.com.mvpkotlin.di.scopes.ActivityScope
+import namnh.com.mvpkotlin.di.scopes.FragmentScope
 
 @Module
-class TaskListModule(private val view: TaskListContract.View) {
-
+@FragmentScope
+class TaskListModule(private val taskListFragment: TaskListFragment) {
   @Provides
-  @ActivityScope
-  fun providePresenter(taskRepo: TaskRepository): TaskListContract.Presenter = TaskListPresenter(
-      view, taskRepo)
+  @FragmentScope
+  fun providePresenter(taskRepo: TaskRepository): TaskListContract.Presenter =
+    TaskListPresenter(taskRepo)
 }
