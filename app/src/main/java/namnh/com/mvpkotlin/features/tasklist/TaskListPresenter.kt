@@ -1,22 +1,27 @@
 package namnh.com.mvpkotlin.features.tasklist
 
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import namnh.com.mvpkotlin.data.source.TaskRepository
 
-class TaskListPresenter(private val view: TaskListContract.View,
-    private val taskRepo: TaskRepository) : TaskListContract.Presenter {
+class TaskListPresenter(private val taskRepo: TaskRepository) : TaskListContract.Presenter {
 
-  override fun start() {
-    // Todo
+  private val disposable = CompositeDisposable()
+  private var tasksView: TaskListContract.View? = null
+
+  override fun takeView(view: TaskListContract.View) {
+    tasksView = view
   }
 
-  override fun stop() {
-    // Todo
+  override fun dropView() {
+    tasksView = null
   }
 
   override fun getTasks(uid: String) {
-    taskRepo.getTasksByOwner(uid).observeOn(AndroidSchedulers.mainThread()).subscribe(
-        { tasks -> view.showTasks(tasks) },
-        { throwable -> view.showError(throwable) })
+    disposable.add(
+      taskRepo.getTasksByOwner(uid).observeOn(AndroidSchedulers.mainThread()).subscribe(
+        { tasks -> tasksView?.showTasks(tasks) },
+        { throwable -> tasksView?.showError(throwable) })
+    )
   }
 }

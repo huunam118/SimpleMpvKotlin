@@ -1,17 +1,19 @@
 package namnh.com.mvpkotlin.di.modules
 
+import android.app.Application
 import android.content.Context
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import namnh.com.mvpkotlin.di.scopes.AppScope
 
 /**
  * Created by namnh on 02/05/2018.
  */
 @Module
-class AppModule(private val appContext: Context) {
+abstract class AppModule {
 
-  @Provides
+  // same as @Provides but this returns injected parameter
+  @Binds
   @AppScope
-  fun provideAppContext(): Context = appContext
+  abstract fun provideAppContext(application: Application): Context
 }
