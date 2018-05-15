@@ -22,5 +22,4 @@ class TaskListActivity : DaggerAppCompatActivity() {
       supportFragmentManager.beginTransaction().add(R.id.container, taskListFragment).commit()
     }
   }
-
 }
