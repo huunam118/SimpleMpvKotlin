@@ -41,7 +41,7 @@ data class Task(
     get() = if (title.isNotEmpty()) title else description
 
   val isActive
-    get() = status != TODO && status != DONE
+    get() = status != TODO
 
   val isEmpty
     get() = title.isEmpty() && description.isEmpty()
